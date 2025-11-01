@@ -417,4 +417,68 @@ document.addEventListener('DOMContentLoaded', () => {
         const greeting = getRandomResponse(aiResponses.greeting);
         addMessage(greeting);
     }, 1000);
+}); 
+
+// AI Assistant Floating Logo
+const aiAssistant = document.getElementById('aiAssistant');
+const aiChatSection = document.getElementById('ai-chat');
+
+// Function to scroll to AI chat
+function scrollToAIChat() {
+    aiChatSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+    });
+    
+    // Focus on chat input after scrolling
+    setTimeout(() => {
+        const chatInput = document.getElementById('chatInput');
+        if (chatInput) {
+            chatInput.focus();
+        }
+    }, 800);
+    
+    // Add pulse animation to logo
+    aiAssistant.querySelector('.ai-logo').classList.add('pulse');
+    
+    // Remove pulse after 3 seconds
+    setTimeout(() => {
+        aiAssistant.querySelector('.ai-logo').classList.remove('pulse');
+    }, 3000);
+    
+    // Track AI assistant usage
+    if (typeof trackToolUsage === 'function') {
+        trackToolUsage('ai_assistant', 'logo_clicked');
+    }
+}
+
+// Event listener for AI assistant
+aiAssistant.addEventListener('click', scrollToAIChat);
+
+// Show/hide AI assistant based on scroll
+window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    
+    // Hide AI assistant when user scrolls past the AI chat section
+    if (scrollPosition > aiChatSection.offsetTop + windowHeight) {
+        aiAssistant.style.display = 'none';
+    } else {
+        aiAssistant.style.display = 'block';
+    }
 });
+
+// Add entrance animation when page loads
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        aiAssistant.style.opacity = '0';
+        aiAssistant.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            aiAssistant.style.opacity = '1';
+            aiAssistant.style.transform = 'translateY(0)';
+        }, 500);
+    }, 1000);
+});
+
