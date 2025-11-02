@@ -482,3 +482,67 @@ window.addEventListener('load', () => {
     }, 1000);
 });
 
+// Mobile Menu Functionality
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuClose = document.getElementById('mobile-menu-close');
+const mainNav = document.getElementById('main-nav');
+
+// Toggle mobile menu
+mobileMenuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'hidden';
+});
+
+// Close mobile menu
+mobileMenuClose.addEventListener('click', () => {
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = '';
+});
+
+// Close mobile menu when clicking on navigation links
+const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Contact Form
+const contactForm = document.querySelector('.contact-form');
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    if (!name || !email || !message) {
+        showNotification('Please fill in all fields', 'error');
+        return;
+    }
+    
+    // Here you would normally send the form data to your server
+    // For now, we'll just show a success message
+    showNotification('Thank you for your message! We\'ll get back to you soon.');
+    
+    // Clear form
+    contactForm.reset();
+    
+    // Close modal
+    const contactModal = document.getElementById('contact-modal');
+    if (contactModal) {
+        setTimeout(() => {
+            contactModal.classList.remove('active');
+        }, 2000);
+    }
+});
