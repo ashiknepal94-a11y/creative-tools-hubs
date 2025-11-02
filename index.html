@@ -7,38 +7,28 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/mobile.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QRZBM3EX6W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QRZBM3EX6W');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3124HJ28V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-W3124HJ28V');
+    </script>
 </head>
 <body>
-    <!-- Floating AI Assistant -->
-<div class="ai-assistant" id="aiAssistant">
-    <div class="ai-logo">
-        <i class="fas fa-robot"></i>
-    </div>
-    <div class="ai-tooltip">
-        <span>AI Assistant</span>
-        <small>Click to chat</small>
-    </div>
-</div>
     <header class="header">
         <div class="container">
             <div class="logo">
                 <img src="assets/images/logo.svg" alt="Creative Tools Hub">
                 <span>Creative Tools Hub</span>
             </div>
-            <nav class="nav">
+            <nav class="nav" id="main-nav">
                 <ul>
                     <li><a href="#home" class="nav-link active">Home</a></li>
                     <li><a href="#features" class="nav-link">Features</a></li>
@@ -225,58 +215,58 @@
             </div>
         </section>
 
-      <section id="blog" class="blog">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Latest from Our Blog</h2>
-            <p class="section-subtitle">Tips, tricks, and insights to boost your creativity</p>
-        </div>
-        <div class="blog-grid">
-            <article class="blog-card" data-blog-id="blog1">
-                <div class="blog-image">
-                    <img src="https://picsum.photos/seed/blog1/600/400.jpg" alt="Blog post image">
+        <section id="blog" class="blog">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Latest from Our Blog</h2>
+                    <p class="section-subtitle">Tips, tricks, and insights to boost your creativity</p>
                 </div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span class="blog-category">Design</span>
-                        <span class="blog-date">July 15, 2023</span>
-                    </div>
-                    <h3 class="blog-title">The Psychology of Color in Design</h3>
-                    <p class="blog-excerpt">Discover how different colors affect emotions and behaviors in design.</p>
-                    <a href="#" class="blog-link read-more" data-blog-id="blog1">Read More <i class="fas fa-arrow-right"></i></a>
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/blog1/600/400.jpg" alt="Blog post image">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Design</span>
+                                <span class="blog-date">July 15, 2023</span>
+                            </div>
+                            <h3 class="blog-title">The Psychology of Color in Design</h3>
+                            <p class="blog-excerpt">Discover how different colors affect emotions and behaviors in design.</p>
+                            <a href="blog.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/blog2/600/400.jpg" alt="Blog post image">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Productivity</span>
+                                <span class="blog-date">July 10, 2023</span>
+                            </div>
+                            <h3 class="blog-title">10 Creative Tools to Boost Your Productivity</h3>
+                            <p class="blog-excerpt">Explore our top tools that can help you work smarter, not harder.</p>
+                            <a href="blog.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://picsum.photos/seed/blog3/600/400.jpg" alt="Blog post image">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Inspiration</span>
+                                <span class="blog-date">July 5, 2023</span>
+                            </div>
+                            <h3 class="blog-title">Finding Inspiration When You're Feeling Stuck</h3>
+                            <p class="blog-excerpt">Practical tips to overcome creative blocks and find your muse again.</p>
+                            <a href="blog.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
                 </div>
-            </article>
-            <article class="blog-card" data-blog-id="blog2">
-                <div class="blog-image">
-                    <img src="https://picsum.photos/seed/blog2/600/400.jpg" alt="Blog post image">
-                </div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span class="blog-category">Productivity</span>
-                        <span class="blog-date">July 10, 2023</span>
-                    </div>
-                    <h3 class="blog-title">10 Creative Tools to Boost Your Productivity</h3>
-                    <p class="blog-excerpt">Explore our top tools that can help you work smarter, not harder.</p>
-                    <a href="#" class="blog-link read-more" data-blog-id="blog2">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <article class="blog-card" data-blog-id="blog3">
-                <div class="blog-image">
-                    <img src="https://picsum.photos/seed/blog3/600/400.jpg" alt="Blog post image">
-                </div>
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span class="blog-category">Inspiration</span>
-                        <span class="blog-date">July 5, 2023</span>
-                    </div>
-                    <h3 class="blog-title">Finding Inspiration When You're Feeling Stuck</h3>
-                    <p class="blog-excerpt">Practical tips to overcome creative blocks and find your muse again.</p>
-                    <a href="#" class="blog-link read-more" data-blog-id="blog3">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
-        </div>
-    </div>
-      </section>
+            </div>
+        </section>
 
         <section class="cta">
             <div class="container">
@@ -287,73 +277,6 @@
                 </div>
             </div>
         </section>
-        <!-- AI Chat Section -->
-<section id="ai-chat" class="ai-chat-section">
-    <div class="container">
-        <div class="ai-chat-header">
-            <div class="ai-chat-title">
-                <div class="ai-avatar">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="ai-info">
-                    <h3>Creative Assistant</h3>
-                    <p>AI-powered help for your creative projects</p>
-                </div>
-            </div>
-            <div class="ai-status">
-                <span class="status-dot online"></span>
-                <span class="status-text">Online</span>
-            </div>
-        </div>
-        
-        <div class="ai-chat-container">
-            <div class="chat-messages" id="chatMessages">
-                <div class="ai-message">
-                    <div class="message-avatar">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="message-content">
-                        <p>Hello! I'm your Creative Assistant. I can help you with:</p>
-                        <ul>
-                            <li>🎨 Using the creative tools</li>
-                            <li>💡 Creative ideas and inspiration</li>
-                            <li>🔧 Technical troubleshooting</li>
-                            <li>📊 Analytics insights</li>
-                        </ul>
-                        <p>What would you like help with today?</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="chat-input-container">
-                <div class="input-wrapper">
-                    <input type="text" id="chatInput" placeholder="Ask me anything about creative tools..." maxlength="200">
-                    <button id="sendMessage" class="send-btn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-                <div class="quick-actions">
-                    <button class="quick-action" data-query="How do I use the QR code generator?">
-                        <i class="fas fa-qrcode"></i>
-                        QR Code Help
-                    </button>
-                    <button class="quick-action" data-query="Give me creative ideas for my project">
-                        <i class="fas fa-lightbulb"></i>
-                        Creative Ideas
-                    </button>
-                    <button class="quick-action" data-query="How can I improve my design skills?">
-                        <i class="fas fa-palette"></i>
-                        Design Tips
-                    </button>
-                    <button class="quick-action" data-query="What tools are best for beginners?">
-                        <i class="fas fa-graduation-cap"></i>
-                        Beginner Guide
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
     </main>
 
     <footer class="footer">
@@ -383,7 +306,7 @@
                         <h4>Company</h4>
                         <ul>
                             <li><a href="#">About</a></li>
-                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="blog.html">Blog</a></li>
                             <li><a href="#">Careers</a></li>
                             <li><a href="#">Press</a></li>
                         </ul>
@@ -552,12 +475,15 @@
         </div>
     </div>
 
+    <!-- AI Assistant Floating Logo -->
+    <div id="aiAssistant" class="ai-assistant">
+        <div class="ai-logo">
+            <i class="fas fa-robot"></i>
+        </div>
+    </div>
+
     <script src="js/main.js"></script>
 </body>
-
 </html>
-
-
-
 
 
