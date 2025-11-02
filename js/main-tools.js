@@ -1,283 +1,221 @@
-// DOM Elements
-const header = document.querySelector('.header');
-const hamburger = document.querySelector('.hamburger');
-const nav = document.querySelector('.nav');
-const navLinks = document.querySelectorAll('.nav-link');
-const toolTabs = document.querySelectorAll('.tool-tab');
-const toolPanels = document.querySelectorAll('.tool-panel');
-const modalTriggers = document.querySelectorAll('[id$="-link"]');
-const modals = document.querySelectorAll('.info-modal');
-const modalCloses = document.querySelectorAll('.info-modal-close');
-
-// Mobile Navigation
-hamburger.addEventListener('click', () => {
-    nav.classList.toggle('active');
-    hamburger.classList.toggle('active');
+document.addEventListener('DOMContentLoaded', function() {
+    // Hamburger menu functionality
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('.nav');
     
-    if (nav.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = '';
-    }
-});
-
-// Close menu when clicking on a link
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        hamburger.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !nav.contains(e.target)) {
-        nav.classList.remove('active');
-        hamburger.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
-
-// Tool Tabs - COMPLETELY FIXED VERSION
-function switchTool(toolName) {
-    console.log('Switching to tool:', toolName);
-    
-    // Remove active class from all tabs
-    toolTabs.forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Remove active class from all panels
-    toolPanels.forEach(panel => {
-        panel.classList.remove('active');
-    });
-    
-    // Add active class to clicked tab
-    const activeTab = document.querySelector(`[data-tool="${toolName}"]`);
-    if (activeTab) {
-        activeTab.classList.add('active');
-        console.log('Tab activated:', toolName);
-    } else {
-        console.error('Tab not found:', toolName);
-    }
-    
-    // Add active class to corresponding panel
-    const activePanel = document.getElementById(`${toolName}-panel`);
-    if (activePanel) {
-        activePanel.classList.add('active');
-        console.log('Panel activated:', `${toolName}-panel`);
-    } else {
-        console.error('Panel not found:', `${toolName}-panel`);
-    }
-}
-
-// Add click listeners to all tool tabs
-toolTabs.forEach(tab => {
-    tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        const toolName = tab.getAttribute('data-tool');
-        console.log('Tab clicked:', toolName);
-        switchTool(toolName);
-    });
-});
-
-// Modals
-modalTriggers.forEach(trigger => {
-    trigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        const modalId = `${trigger.id.replace('-link', '')}-modal`;
-        const modal = document.getElementById(modalId);
+    if (hamburger && nav) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
         
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+    }
+    
+    // Tool tabs functionality
+    const toolTabs = document.querySelectorAll('.tool-tab');
+    const toolPanels = document.querySelectorAll('.tool-panel');
+    
+    toolTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const toolName = this.getAttribute('data-tool');
+            
+            // Remove active class from all tabs and panels
+            toolTabs.forEach(t => t.classList.remove('active'));
+            toolPanels.forEach(p => p.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding panel
+            this.classList.add('active');
+            document.getElementById(`${toolName}-panel`).classList.add('active');
+        });
+    });
+    
+    // Modal functionality
+    const helpLink = document.getElementById('help-link');
+    const faqLink = document.getElementById('faq-link');
+    const privacyLink = document.getElementById('privacy-link');
+    
+    const helpModal = document.getElementById('help-modal');
+    const faqModal = document.getElementById('faq-modal');
+    const privacyModal = document.getElementById('privacy-modal');
+    
+    // Function to open modal
+    function openModal(modal) {
         if (modal) {
-            modal.classList.add('active');
+            modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
+    }
+    
+    // Function to close modal
+    function closeModal(modal) {
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+    
+    // Event listeners for opening modals
+    if (helpLink) {
+        helpLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(helpModal);
+        });
+    }
+    
+    if (faqLink) {
+        faqLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(faqModal);
+        });
+    }
+    
+    if (privacyLink) {
+        privacyLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal(privacyModal);
+        });
+    }
+    
+    // Event listeners for closing modals
+    const closeButtons = document.querySelectorAll('.info-modal-close');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.info-modal');
+            closeModal(modal);
+        });
     });
-});
-
-modalCloses.forEach(close => {
-    close.addEventListener('click', () => {
-        const modal = close.closest('.info-modal');
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-});
-
-modals.forEach(modal => {
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('info-modal')) {
+            closeModal(e.target);
         }
     });
-});
-
-// FAQ Accordion
-document.addEventListener('DOMContentLoaded', () => {
-    const faqQuestions = document.querySelectorAll('.faq-question');
     
+    // FAQ accordion functionality
+    const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const faqItem = question.parentElement;
-            const answer = faqItem.querySelector('.faq-answer');
-            const icon = question.querySelector('i');
-            
-            // Toggle active class
-            faqItem.classList.toggle('active');
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const icon = this.querySelector('i');
             
             // Toggle answer visibility
-            if (faqItem.classList.contains('active')) {
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            } else {
-                answer.style.maxHeight = '0';
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
                 icon.classList.remove('fa-chevron-up');
                 icon.classList.add('fa-chevron-down');
+            } else {
+                answer.style.display = 'block';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
             }
         });
     });
     
-    // DEBUG: Check if all elements exist
-    console.log('=== DEBUG INFO ===');
-    console.log('Tool tabs found:', toolTabs.length);
-    console.log('Tool panels found:', toolPanels.length);
+    // AI Chat functionality
+    const chatInput = document.getElementById('chatInput');
+    const sendButton = document.getElementById('sendMessage');
+    const chatMessages = document.getElementById('chatMessages');
+    const quickActions = document.querySelectorAll('.quick-action');
     
-    // List all tabs
-    toolTabs.forEach((tab, index) => {
-        const toolName = tab.getAttribute('data-tool');
-        console.log(`Tab ${index}: ${toolName}`, tab);
-    });
-    
-    // List all panels
-    toolPanels.forEach((panel, index) => {
-        console.log(`Panel ${index}: ${panel.id}`, panel);
-    });
-    
-    // Check for missing panels
-    toolTabs.forEach(tab => {
-        const toolName = tab.getAttribute('data-tool');
-        const panel = document.getElementById(`${toolName}-panel`);
-        if (!panel) {
-            console.error(`❌ MISSING PANEL for tool: ${toolName}`);
-        } else {
-            console.log(`✅ Panel exists for tool: ${toolName}`);
-        }
-    });
-    
-    // Initialize first tool as active
-    if (toolTabs.length > 0) {
-        const firstToolName = toolTabs[0].getAttribute('data-tool');
-        console.log('Initializing first tool:', firstToolName);
-        switchTool(firstToolName);
-    }
-    
-    // Mobile Touch Events
-    const touchElements = document.querySelectorAll('.tool-tab, .nav-link, .btn, .faq-question');
-    
-    touchElements.forEach(element => {
-        element.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.95)';
-        });
+    // Function to add a message to the chat
+    function addMessage(message, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add(isUser ? 'user-message' : 'ai-message');
         
-        element.addEventListener('touchend', function() {
-            this.style.transform = 'scale(1)';
-        });
-    });
-    
-    // Fix for mobile modal closing
-    const modalCloseButtons = document.querySelectorAll('.info-modal-close');
-    modalCloseButtons.forEach(close => {
-        close.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            const modal = this.closest('.info-modal');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-});
-
-// Header Scroll Effect
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+        const avatarDiv = document.createElement('div');
+        avatarDiv.classList.add('message-avatar');
+        avatarDiv.innerHTML = isUser ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('message-content');
+        contentDiv.innerHTML = `<p>${message}</p>`;
+        
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(contentDiv);
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-});
-
-// Notification System
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
     
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 100);
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
+    // Function to simulate AI response
+    function simulateAIResponse(userMessage) {
+        // Simulate typing indicator
+        const typingDiv = document.createElement('div');
+        typingDiv.classList.add('ai-message', 'typing-indicator');
+        
+        const avatarDiv = document.createElement('div');
+        avatarDiv.classList.add('message-avatar');
+        avatarDiv.innerHTML = '<i class="fas fa-robot"></i>';
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('message-content');
+        contentDiv.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+        
+        typingDiv.appendChild(avatarDiv);
+        typingDiv.appendChild(contentDiv);
+        
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulate response delay
         setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
-}
-
-// Copy to Clipboard Function
-function copyToClipboard(text) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
+            chatMessages.removeChild(typingDiv);
+            
+            // Generate a response based on the user's message
+            let response = '';
+            
+            if (userMessage.toLowerCase().includes('qr code')) {
+                response = 'To use the QR Code Generator, simply enter the URL or text you want to encode, customize the appearance if desired, and click "Generate QR Code". You can then download the QR code as an image.';
+            } else if (userMessage.toLowerCase().includes('creative') || userMessage.toLowerCase().includes('idea')) {
+                response = 'For creative inspiration, try using our Prompt Generator for writing ideas, Color Palette Generator for design inspiration, or Emoji Art Generator for fun visual creations. Each tool is designed to spark creativity in different ways!';
+            } else if (userMessage.toLowerCase().includes('design') || userMessage.toLowerCase().includes('beginner')) {
+                response = 'For beginners, I recommend starting with the Color Palette Generator to understand color theory, the Quote Generator for inspiration, and the ASCII Art Generator for simple text-based creations. These tools are intuitive and great for learning creative basics.';
+            } else {
+                response = 'Thank you for your question! Our Creative Tools Hub offers 10+ different tools to help with various creative tasks. Is there a specific tool you\'d like to know more about? I\'m here to help with any questions you might have.';
+            }
+            
+            addMessage(response);
+        }, 1500);
+    }
     
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
+    // Send message function
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (message) {
+            addMessage(message, true);
+            chatInput.value = '';
+            simulateAIResponse(message);
+        }
+    }
     
-    showNotification('Copied to clipboard!', 'success');
-}
-
-// Download Function
-function downloadFile(data, filename, type) {
-    const blob = new Blob([data], { type });
-    const url = URL.createObjectURL(blob);
+    // Event listeners for chat
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    }
     
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.style.display = 'none';
-    
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    
-    URL.revokeObjectURL(url);
-    
-    showNotification(`Downloaded ${filename}!`, 'success');
-}
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    // Add animations to elements
-    const animateElements = document.querySelectorAll('.tool-panel');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in');
-                observer.unobserve(entry.target);
+    if (chatInput) {
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
             }
         });
-    }, {
-        threshold: 0.1
-    });
+    }
     
-    animateElements.forEach(element => {
-        observer.observe(element);
+    // Quick action buttons
+    quickActions.forEach(button => {
+        button.addEventListener('click', function() {
+            const query = this.getAttribute('data-query');
+            chatInput.value = query;
+            sendMessage();
+        });
     });
 });
