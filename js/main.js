@@ -1,14 +1,6 @@
-// DOM Elements
-const header = document.querySelector('.header');
-const hamburger = document.querySelector('.hamburger');
-const nav = document.querySelector('.nav');
-const navLinks = document.querySelectorAll('.nav-link');
-const modalTriggers = document.querySelectorAll('[id$="-link"]');
-const modals = document.querySelectorAll('.info-modal');
-const modalCloses = document.querySelectorAll('.info-modal-close');
-
-// Initialize everything when DOM is loaded
+// Complete main.js with fixed tool switching
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all components
     initMobileNavigation();
     initModals();
     initSmoothScrolling();
@@ -20,10 +12,142 @@ document.addEventListener('DOMContentLoaded', function() {
     initNotificationSystem();
     initUtilityFunctions();
     initAnalytics();
+    initToolTabs(); // This is the key function for tool switching
+    initThemeToggle();
+    initSearch();
+    initTooltips();
+    initProgressIndicators();
+    initKeyboardShortcuts();
+    initLazyLoading();
+    initOfflineSupport();
+    initPerformanceMonitoring();
 });
+
+// Tool Tabs Functionality - COMPLETELY REWRITTEN
+function initToolTabs() {
+    // Only run this on tools.html page
+    if (!document.querySelector('.tools-container')) return;
+    
+    const toolTabs = document.querySelectorAll('.tool-tab');
+    const toolPanels = document.querySelectorAll('.tool-panel');
+    
+    if (toolTabs.length === 0 || toolPanels.length === 0) return;
+    
+    console.log(`Found ${toolTabs.length} tabs and ${toolPanels.length} panels`);
+    
+    // Function to switch to a specific tool
+    function switchToTool(toolName) {
+        console.log(`Switching to tool: ${toolName}`);
+        
+        // Find the tab and panel for this tool
+        const targetTab = document.querySelector(`[data-tool="${toolName}"]`);
+        const targetPanel = document.getElementById(`${toolName}-panel`);
+        
+        if (!targetTab || !targetPanel) {
+            console.error(`Tab or panel not found for tool: ${toolName}`);
+            return;
+        }
+        
+        // Remove active class from all tabs and panels
+        toolTabs.forEach(tab => tab.classList.remove('active'));
+        toolPanels.forEach(panel => panel.classList.remove('active'));
+        
+        // Add active class to the target tab and panel
+        targetTab.classList.add('active');
+        targetPanel.classList.add('active');
+        
+        // Add animation
+        targetPanel.style.opacity = '0';
+        targetPanel.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            targetPanel.style.opacity = '1';
+            targetPanel.style.transform = 'translateY(0)';
+        }, 10);
+        
+        // Track tool usage
+        if (typeof trackToolUsage === 'function') {
+            trackToolUsage(toolName, 'tab_switch');
+        }
+        
+        // Update URL hash
+        history.pushState(null, null, `#${toolName}`);
+    }
+    
+    // Add click event to each tool tab
+    toolTabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            const toolName = this.getAttribute('data-tool');
+            switchToTool(toolName);
+        });
+    });
+    
+    // Handle hash changes
+    function handleHashChange() {
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+            const tab = document.querySelector(`[data-tool="${hash}"]`);
+            if (tab) {
+                switchToTool(hash);
+                return;
+            }
+        }
+        
+        // Default to first tool if no valid hash
+        if (toolTabs.length > 0) {
+            const firstToolName = toolTabs[0].getAttribute('data-tool');
+            switchToTool(firstToolName);
+        }
+    }
+    
+    // Initialize based on current hash
+    handleHashChange();
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Add keyboard navigation
+    toolTabs.forEach((tab, index) => {
+        tab.setAttribute('tabindex', '0');
+        tab.setAttribute('role', 'tab');
+        tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+        tab.setAttribute('aria-controls', `${tab.getAttribute('data-tool')}-panel`);
+        
+        tab.addEventListener('keydown', (e) => {
+            let newIndex;
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                    newIndex = (index + 1) % toolTabs.length;
+                    break;
+                case 'ArrowLeft':
+                    newIndex = (index - 1 + toolTabs.length) % toolTabs.length;
+                    break;
+                case 'Home':
+                    newIndex = 0;
+                    break;
+                case 'End':
+                    newIndex = toolTabs.length - 1;
+                    break;
+                default:
+                    return;
+            }
+            
+            e.preventDefault();
+            toolTabs[newIndex].focus();
+            const toolName = toolTabs[newIndex].getAttribute('data-tool');
+            switchToTool(toolName);
+        });
+    });
+}
 
 // Mobile Navigation
 function initMobileNavigation() {
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('.nav');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
     if (!hamburger || !nav) return;
     
     hamburger.addEventListener('click', toggleMobileMenu);
@@ -46,28 +170,26 @@ function initMobileNavigation() {
             closeMobileMenu();
         }
     });
-}
-
-function toggleMobileMenu() {
-    nav.classList.toggle('active');
-    hamburger.classList.toggle('active');
     
-    // Prevent body scroll when menu is open
-    if (nav.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-        // Add overlay for better mobile experience
-        createOverlay();
-    } else {
+    function toggleMobileMenu() {
+        nav.classList.toggle('active');
+        hamburger.classList.toggle('active');
+        
+        if (nav.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+            createOverlay();
+        } else {
+            document.body.style.overflow = '';
+            removeOverlay();
+        }
+    }
+    
+    function closeMobileMenu() {
+        nav.classList.remove('active');
+        hamburger.classList.remove('active');
         document.body.style.overflow = '';
         removeOverlay();
     }
-}
-
-function closeMobileMenu() {
-    nav.classList.remove('active');
-    hamburger.classList.remove('active');
-    document.body.style.overflow = '';
-    removeOverlay();
 }
 
 // Create overlay for mobile menu
@@ -105,13 +227,19 @@ function removeOverlay() {
     if (overlay) {
         overlay.style.opacity = '0';
         setTimeout(() => {
-            document.body.removeChild(overlay);
+            if (overlay.parentNode) {
+                document.body.removeChild(overlay);
+            }
         }, 300);
     }
 }
 
 // Modals
 function initModals() {
+    const modalTriggers = document.querySelectorAll('[id$="-link"]');
+    const modals = document.querySelectorAll('.info-modal');
+    const modalCloses = document.querySelectorAll('.info-modal-close');
+    
     modalTriggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
@@ -145,34 +273,36 @@ function initModals() {
             }
         });
     });
-}
-
-function openModal(modal) {
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
     
-    // Add entrance animation
-    modal.style.opacity = '0';
-    modal.style.transform = 'translateY(-20px)';
+    function openModal(modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Add entrance animation
+        modal.style.opacity = '0';
+        modal.style.transform = 'translateY(-20px)';
+        
+        setTimeout(() => {
+            modal.style.opacity = '1';
+            modal.style.transform = 'translateY(0)';
+        }, 10);
+    }
     
-    setTimeout(() => {
-        modal.style.opacity = '1';
-        modal.style.transform = 'translateY(0)';
-    }, 10);
-}
-
-function closeModal(modal) {
-    modal.style.opacity = '0';
-    modal.style.transform = 'translateY(-20px)';
-    
-    setTimeout(() => {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }, 300);
+    function closeModal(modal) {
+        modal.style.opacity = '0';
+        modal.style.transform = 'translateY(-20px)';
+        
+        setTimeout(() => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }, 300);
+    }
 }
 
 // Smooth Scrolling for Navigation Links
 function initSmoothScrolling() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             if (link.getAttribute('href').startsWith('#')) {
@@ -181,17 +311,13 @@ function initSmoothScrolling() {
                 const targetSection = document.querySelector(targetId);
                 
                 if (targetSection) {
-                    // Calculate header height for offset
-                    const headerHeight = header.offsetHeight;
+                    const headerHeight = document.querySelector('.header').offsetHeight;
                     const targetPosition = targetSection.offsetTop - headerHeight;
                     
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
-                    
-                    // Update active nav link
-                    updateActiveNavLink(targetId);
                 }
             }
         });
@@ -236,6 +362,7 @@ function initFAQAccordion() {
 
 // Header Scroll Effect
 function initHeaderScrollEffect() {
+    const header = document.querySelector('.header');
     let lastScrollTop = 0;
     
     window.addEventListener('scroll', () => {
@@ -262,7 +389,6 @@ function initHeaderScrollEffect() {
 
 // Animations
 function initAnimations() {
-    // Add animations to elements
     const animateElements = document.querySelectorAll('.feature-card, .blog-card, .pricing-card, .tool-panel');
     
     const observer = new IntersectionObserver((entries) => {
@@ -308,7 +434,6 @@ function initTouchEvents() {
 
 // Notification System
 function initNotificationSystem() {
-    // Create notification container if it doesn't exist
     if (!document.getElementById('notification-container')) {
         const container = document.createElement('div');
         container.id = 'notification-container';
@@ -327,7 +452,6 @@ function showNotification(message, type = 'info', duration = 3000) {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     
-    // Set icon based on type
     let icon = '';
     switch (type) {
         case 'success':
@@ -429,16 +553,6 @@ function initUtilityFunctions() {
     };
 }
 
-// Update active navigation link
-function updateActiveNavLink(targetId) {
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === targetId) {
-            link.classList.add('active');
-        }
-    });
-}
-
 // AI Chat Functionality
 function initAIChat() {
     const chatInput = document.getElementById('chatInput');
@@ -456,7 +570,7 @@ function initAIChat() {
             "Welcome! I can assist you with creative tools, ideas, and troubleshooting. What's on your mind?"
         ],
         qr_help: [
-            "To use the QR Code Generator: 1) Go to tools.html, 2) Click the QR Code tab, 3) Enter your URL or text, 4) Customize colors and size, 5) Click 'Generate QR Code', 6) Download your QR code!",
+            "To use the QR Code Generator: 1) Select the QR Code tab, 2) Enter your URL or text, 3) Customize colors and size, 4) Click 'Generate QR Code', 5) Download your QR code!",
             "QR Code Generator is simple! Just enter any URL or text, adjust the appearance if you want, and click generate. You can create QR codes for websites, WiFi, contact info, and more!",
             "For QR codes: Choose your content type (URL, text, WiFi), enter the information, select size and colors, then generate. Perfect for sharing links, contact info, or WiFi passwords!"
         ],
@@ -748,11 +862,307 @@ function initAnalytics() {
     });
 }
 
-// Initialize AI Assistant if it exists
-document.addEventListener('DOMContentLoaded', initAIAssistant);
+// Theme Toggle
+function initThemeToggle() {
+    const themeToggle = document.createElement('button');
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    themeToggle.className = 'theme-toggle';
+    themeToggle.setAttribute('aria-label', 'Toggle theme');
+    
+    // Add theme toggle to header
+    const headerContainer = document.querySelector('.header .container');
+    if (headerContainer) {
+        headerContainer.appendChild(themeToggle);
+    }
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+        
+        // Track theme change
+        if (typeof trackToolUsage === 'function') {
+            trackToolUsage('theme', 'toggle');
+        }
+    });
+    
+    function updateThemeIcon(theme) {
+        const themeToggle = document.querySelector('.theme-toggle i');
+        if (themeToggle) {
+            themeToggle.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+    }
+}
+
+// Search Functionality
+function initSearch() {
+    const searchToggle = document.createElement('button');
+    searchToggle.innerHTML = '<i class="fas fa-search"></i>';
+    searchToggle.className = 'search-toggle';
+    searchToggle.setAttribute('aria-label', 'Toggle search');
+    
+    // Add search toggle to header
+    const headerContainer = document.querySelector('.header .container');
+    if (headerContainer) {
+        headerContainer.appendChild(searchToggle);
+    }
+    
+    // Create search modal
+    const searchModal = createSearchModal();
+    document.body.appendChild(searchModal);
+    
+    searchToggle.addEventListener('click', () => {
+        searchModal.classList.add('active');
+        document.getElementById('search-input').focus();
+    });
+    
+    // Close search on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+            searchModal.classList.remove('active');
+        }
+    });
+    
+    function createSearchModal() {
+        const modal = document.createElement('div');
+        modal.className = 'search-modal';
+        modal.innerHTML = `
+            <div class="search-content">
+                <div class="search-header">
+                    <input type="text" id="search-input" placeholder="Search tools, features, or help..." autocomplete="off">
+                    <button class="search-close">&times;</button>
+                </div>
+                <div class="search-results" id="search-results"></div>
+            </div>
+        `;
+        
+        // Add event listeners
+        const searchInput = modal.querySelector('#search-input');
+        const searchClose = modal.querySelector('.search-close');
+        const searchResults = modal.querySelector('#search-results');
+        
+        searchInput.addEventListener('input', debounce(performSearch, 300));
+        searchClose.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+        
+        return modal;
+    }
+    
+    function performSearch() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const results = document.getElementById('search-results');
+        
+        if (!query) {
+            results.innerHTML = '';
+            return;
+        }
+        
+        // Search data
+        const searchData = [
+            { title: 'QR Code Generator', category: 'Tools', url: '#qr-code', description: 'Create custom QR codes' },
+            { title: 'Color Palette Generator', category: 'Tools', url: '#color-palette', description: 'Generate beautiful color palettes' },
+            { title: 'Password Generator', category: 'Tools', url: '#password', description: 'Create secure passwords' },
+            { title: 'Quote Generator', category: 'Tools', url: '#quote', description: 'Get inspirational quotes' },
+            { title: 'Getting Started', category: 'Help', url: '#help', description: 'Learn how to use our tools' },
+            { title: 'Pricing Plans', category: 'Info', url: '#pricing', description: 'Compare our pricing plans' }
+        ];
+        
+        const filtered = searchData.filter(item => 
+            item.title.toLowerCase().includes(query) || 
+            item.description.toLowerCase().includes(query) ||
+            item.category.toLowerCase().includes(query)
+        );
+        
+        if (filtered.length === 0) {
+            results.innerHTML = '<div class="search-no-results">No results found</div>';
+            return;
+        }
+        
+        results.innerHTML = filtered.map(item => `
+            <div class="search-result-item" onclick="window.location.hash='${item.url.substring(1)}'; document.querySelector('.search-modal').classList.remove('active');">
+                <div class="search-result-title">${highlightMatch(item.title, query)}</div>
+                <div class="search-result-category">${item.category}</div>
+                <div class="search-result-description">${highlightMatch(item.description, query)}</div>
+            </div>
+        `).join('');
+    }
+    
+    function highlightMatch(text, query) {
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<mark>$1</mark>');
+    }
+    
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+}
+
+// Tooltips
+function initTooltips() {
+    const tooltipElements = document.querySelectorAll('[data-tooltip]');
+    
+    tooltipElements.forEach(element => {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.textContent = element.getAttribute('data-tooltip');
+        
+        element.appendChild(tooltip);
+        
+        element.addEventListener('mouseenter', () => {
+            tooltip.classList.add('active');
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('active');
+        });
+    });
+}
+
+// Progress Indicators
+function initProgressIndicators() {
+    // Add progress bar to tool results
+    const toolResults = document.querySelectorAll('.tool-result');
+    
+    toolResults.forEach(result => {
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        progressBar.innerHTML = '<div class="progress-fill"></div>';
+        result.appendChild(progressBar);
+    });
+}
+
+// Keyboard Shortcuts
+function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + K for search
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            const searchModal = document.querySelector('.search-modal');
+            if (searchModal) {
+                searchModal.classList.add('active');
+                document.getElementById('search-input').focus();
+            }
+        }
+        
+        // Ctrl/Cmd + / for help
+        if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+            e.preventDefault();
+            const helpModal = document.getElementById('help-modal');
+            if (helpModal) {
+                helpModal.classList.add('active');
+            }
+        }
+        
+        // Alt + T for theme toggle
+        if (e.altKey && e.key === 't') {
+            e.preventDefault();
+            const themeToggle = document.querySelector('.theme-toggle');
+            if (themeToggle) themeToggle.click();
+        }
+    });
+}
+
+// Lazy Loading
+function initLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Offline Support
+function initOfflineSupport() {
+    // Show offline status
+    const offlineIndicator = document.createElement('div');
+    offlineIndicator.className = 'offline-indicator';
+    offlineIndicator.innerHTML = '<i class="fas fa-wifi"></i> You are offline';
+    document.body.appendChild(offlineIndicator);
+    
+    window.addEventListener('online', () => {
+        offlineIndicator.classList.remove('active');
+        showNotification('You are back online!', 'success');
+    });
+    
+    window.addEventListener('offline', () => {
+        offlineIndicator.classList.add('active');
+        showNotification('You are offline. Some features may not work.', 'warning');
+    });
+}
+
+// Performance Monitoring
+function initPerformanceMonitoring() {
+    // Track page load time
+    window.addEventListener('load', () => {
+        const loadTime = performance.now();
+        console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
+        
+        // Track slow loads
+        if (loadTime > 3000) {
+            showNotification('Page load is slower than expected', 'warning');
+        }
+    });
+    
+    // Track tool usage performance
+    window.trackToolPerformance = function(toolName, duration) {
+        if (duration > 2000) {
+            console.warn(`${toolName} took ${duration}ms to execute`);
+        }
+    };
+}
 
 // Add CSS for animations and mobile improvements
 const additionalCSS = `
+/* Tool Panel Transitions */
+.tool-panel {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tool-panel.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tool Tab Active State */
+.tool-tab.active {
+    background: var(--gradient-primary);
+    color: white;
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
 /* Mobile Menu Overlay */
 .mobile-overlay {
     position: fixed;
@@ -932,4 +1342,3 @@ const additionalCSS = `
 const style = document.createElement('style');
 style.textContent = additionalCSS;
 document.head.appendChild(style);
-
