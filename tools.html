@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Tools Hub - Premium Tools</title>
+    <title>Creative Tools Hub - Tools</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/mobile.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W3124HJ28V"></script>
     <script>
@@ -30,13 +27,13 @@
                 <img src="assets/images/logo.svg" alt="Creative Tools Hub">
                 <span>Creative Tools Hub</span>
             </div>
-            <nav class="nav" id="main-nav">
+            <nav class="nav">
                 <ul>
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="tools.html" class="nav-link active">Tools</a></li>
                     <li><a href="index.html#pricing" class="nav-link">Pricing</a></li>
                     <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="#" class="nav-link btn btn-primary upgrade-btn">Upgrade to Pro</a></li>
+                    <li><a href="#" class="nav-link btn btn-primary">Upgrade</a></li>
                 </ul>
             </nav>
             <div class="hamburger">
@@ -48,77 +45,53 @@
     </header>
 
     <main class="tools-main">
-        <!-- Usage Indicator -->
-        <div class="usage-indicator">
-            <div class="usage-text">Free Plan: 5/10 tools used</div>
-            <div class="usage-bar">
-                <div class="usage-fill" style="width: 50%"></div>
-            </div>
-        </div>
-
-        <!-- Performance Metrics (Enterprise) -->
-        <div class="performance-metrics enterprise-feature">
-            <div class="metric-item">
-                <span class="metric-label">API Calls</span>
-                <span class="metric-value">1,234</span>
-            </div>
-            <div class="metric-item">
-                <span class="metric-label">Storage</span>
-                <span class="metric-value">2.3GB</span>
-            </div>
-            <div class="metric-item">
-                <span class="metric-label">Team Size</span>
-                <span class="metric-value">12</span>
-            </div>
-        </div>
-
         <section class="tools-hero">
             <div class="container">
-                <h1 class="tools-hero-title">Premium Creative Tools Collection</h1>
-                <p class="tools-hero-subtitle">Choose a tool below to start creating with advanced features</p>
+                <h1 class="tools-hero-title">Creative Tools Collection</h1>
+                <p class="tools-hero-subtitle">Choose a tool below to start creating</p>
             </div>
         </section>
 
         <section class="tools-container">
             <div class="container">
                 <div class="tools-tabs">
-                    <button class="tool-tab active" data-tool="qr-code" data-tooltip="Generate QR codes with custom branding">
+                    <button class="tool-tab active" data-tool="qr-code">
                         <i class="fas fa-qrcode"></i>
                         <span>QR Code</span>
                     </button>
-                    <button class="tool-tab" data-tool="quote" data-tooltip="Get inspirational quotes">
+                    <button class="tool-tab" data-tool="quote">
                         <i class="fas fa-quote-right"></i>
                         <span>Quote</span>
                     </button>
-                    <button class="tool-tab" data-tool="emoji-art" data-tooltip="Create emoji art">
+                    <button class="tool-tab" data-tool="emoji-art">
                         <i class="fas fa-smile"></i>
                         <span>Emoji Art</span>
                     </button>
-                    <button class="tool-tab" data-tool="prompt" data-tooltip="Generate creative prompts">
+                    <button class="tool-tab" data-tool="prompt">
                         <i class="fas fa-lightbulb"></i>
                         <span>Prompt</span>
                     </button>
-                    <button class="tool-tab" data-tool="color-palette" data-tooltip="Create color palettes">
+                    <button class="tool-tab" data-tool="color-palette">
                         <i class="fas fa-palette"></i>
                         <span>Color Palette</span>
                     </button>
-                    <button class="tool-tab" data-tool="password" data-tooltip="Generate secure passwords">
+                    <button class="tool-tab" data-tool="password">
                         <i class="fas fa-lock"></i>
                         <span>Password</span>
                     </button>
-                    <button class="tool-tab" data-tool="ascii-art" data-tooltip="Create ASCII art">
+                    <button class="tool-tab" data-tool="ascii-art">
                         <i class="fas fa-font"></i>
                         <span>ASCII Art</span>
                     </button>
-                    <button class="tool-tab" data-tool="decision-maker" data-tooltip="Make decisions easily">
+                    <button class="tool-tab" data-tool="decision-maker">
                         <i class="fas fa-dice"></i>
                         <span>Decision</span>
                     </button>
-                    <button class="tool-tab" data-tool="meme" data-tooltip="Create memes">
+                    <button class="tool-tab" data-tool="meme">
                         <i class="fas fa-laugh"></i>
                         <span>Meme</span>
                     </button>
-                    <button class="tool-tab" data-tool="lorem-ipsum" data-tooltip="Generate placeholder text">
+                    <button class="tool-tab" data-tool="lorem-ipsum">
                         <i class="fas fa-paragraph"></i>
                         <span>Lorem Ipsum</span>
                     </button>
@@ -129,7 +102,7 @@
                     <div class="tool-panel active" id="qr-code-panel">
                         <div class="tool-header">
                             <h2>QR Code Generator</h2>
-                            <p>Create custom QR codes with advanced features and analytics</p>
+                            <p>Create custom QR codes for URLs, text, WiFi, and more.</p>
                         </div>
                         <div class="tool-body">
                             <div class="tool-form">
@@ -141,9 +114,6 @@
                                         <option value="wifi">WiFi</option>
                                         <option value="email">Email</option>
                                         <option value="phone">Phone</option>
-                                        <option value="sms">SMS</option>
-                                        <option value="vcard">vCard</option>
-                                        <option value="location">Location</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -156,150 +126,49 @@
                                     <span id="qr-size-value">250px</span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="qr-color">Foreground Color</label>
+                                    <label for="qr-color">Color</label>
                                     <input type="color" id="qr-color" value="#000000">
                                 </div>
                                 <div class="form-group">
                                     <label for="qr-bg-color">Background Color</label>
                                     <input type="color" id="qr-bg-color" value="#ffffff">
                                 </div>
-                                <div class="form-group premium-feature">
-                                    <label for="qr-logo">Upload Logo (Pro)</label>
-                                    <input type="file" id="qr-logo" accept="image/*">
-                                </div>
-                                <div class="form-group premium-feature">
-                                    <label for="qr-error-correction">Error Correction</label>
-                                    <select id="qr-error-correction">
-                                        <option value="L">Low (7%)</option>
-                                        <option value="M">Medium (15%)</option>
-                                        <option value="Q">Quartile (25%)</option>
-                                        <option value="H">High (30%)</option>
-                                    </select>
-                                </div>
                                 <button id="generate-qr" class="btn btn-primary">Generate QR Code</button>
-                                <button id="batch-qr" class="btn btn-outline premium-feature">Batch Generate</button>
                             </div>
                             <div class="tool-result">
                                 <div id="qr-result"></div>
-                                <div class="premium-actions">
-                                    <button id="download-qr" class="btn btn-outline" style="display: none;">Download PNG</button>
-                                    <button id="download-qr-svg" class="btn btn-outline premium-feature" style="display: none;">Download SVG</button>
-                                    <button id="download-qr-eps" class="btn btn-outline premium-feature" style="display: none;">Download EPS</button>
-                                    <button id="share-qr" class="btn btn-outline premium-feature" style="display: none;">Share</button>
-                                    <button id="analytics-qr" class="btn btn-outline premium-feature" style="display: none;">View Analytics</button>
-                                </div>
+                                <button id="download-qr" class="btn btn-outline" style="display: none;">Download QR Code</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Color Palette Generator -->
-                    <div class="tool-panel" id="color-palette-panel">
+                    <!-- Quote Generator -->
+                    <div class="tool-panel" id="quote-panel">
                         <div class="tool-header">
-                            <h2>Color Palette Generator</h2>
-                            <p>Generate beautiful color palettes with AI-powered suggestions</p>
+                            <h2>Quote Generator</h2>
+                            <p>Get inspired with our collection of motivational and thought-provoking quotes.</p>
                         </div>
                         <div class="tool-body">
                             <div class="tool-form">
                                 <div class="form-group">
-                                    <label for="palette-type">Palette Type</label>
-                                    <select id="palette-type">
-                                        <option value="monochromatic">Monochromatic</option>
-                                        <option value="analogous">Analogous</option>
-                                        <option value="complementary">Complementary</option>
-                                        <option value="triadic">Triadic</option>
-                                        <option value="tetradic">Tetradic</option>
-                                        <option value="split-complementary">Split Complementary</option>
-                                        <option value="ai">AI-Powered</option>
+                                    <label for="quote-category">Category</label>
+                                    <select id="quote-category">
+                                        <option value="motivational">Motivational</option>
+                                        <option value="inspirational">Inspirational</option>
+                                        <option value="success">Success</option>
+                                        <option value="life">Life</option>
+                                        <option value="love">Love</option>
+                                        <option value="friendship">Friendship</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="base-color">Base Color</label>
-                                    <input type="color" id="base-color" value="#3498db">
-                                </div>
-                                <div class="form-group premium-feature">
-                                    <label for="palette-mood">Mood/Theme</label>
-                                    <select id="palette-mood">
-                                        <option value="vibrant">Vibrant</option>
-                                        <option value="pastel">Pastel</option>
-                                        <option value="dark">Dark</option>
-                                        <option value="nature">Nature</option>
-                                        <option value="sunset">Sunset</option>
-                                        <option value="ocean">Ocean</option>
-                                    </select>
-                                </div>
-                                <button id="generate-palette" class="btn btn-primary">Generate Palette</button>
-                                <button id="ai-palette" class="btn btn-outline premium-feature">AI Generate</button>
+                                <button id="generate-quote" class="btn btn-primary">Generate Quote</button>
                             </div>
                             <div class="tool-result">
-                                <div id="palette-result" class="palette-result"></div>
-                                <div class="premium-actions">
-                                    <button id="export-palette" class="btn btn-outline premium-feature" style="display: none;">Export ASE</button>
-                                    <button id="export-palette-css" class="btn btn-outline premium-feature" style="display: none;">Export CSS</button>
-                                    <button id="export-palette-sass" class="btn btn-outline premium-feature" style="display: none;">Export SASS</button>
-                                    <button id="save-palette" class="btn btn-outline premium-feature" style="display: none;">Save to Library</button>
+                                <div id="quote-result" class="quote-result">
+                                    <blockquote id="quote-text"></blockquote>
+                                    <cite id="quote-author"></cite>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Password Generator -->
-                    <div class="tool-panel" id="password-panel">
-                        <div class="tool-header">
-                            <h2>Password Generator</h2>
-                            <p>Create strong, secure passwords with advanced options</p>
-                        </div>
-                        <div class="tool-body">
-                            <div class="tool-form">
-                                <div class="form-group">
-                                    <label for="password-length">Password Length</label>
-                                    <input type="range" id="password-length" min="8" max="64" value="16">
-                                    <span id="password-length-value">16</span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Include</label>
-                                    <div class="checkbox-group">
-                                        <label class="checkbox-label">
-                                            <input type="checkbox" id="include-uppercase" checked>
-                                            <span>Uppercase Letters</span>
-                                        </label>
-                                        <label class="checkbox-label">
-                                            <input type="checkbox" id="include-lowercase" checked>
-                                            <span>Lowercase Letters</span>
-                                        </label>
-                                        <label class="checkbox-label">
-                                            <input type="checkbox" id="include-numbers" checked>
-                                            <span>Numbers</span>
-                                        </label>
-                                        <label class="checkbox-label">
-                                            <input type="checkbox" id="include-symbols" checked>
-                                            <span>Symbols</span>
-                                        </label>
-                                        <label class="checkbox-label premium-feature">
-                                            <input type="checkbox" id="include-ambiguous">
-                                            <span>Avoid Ambiguous</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group premium-feature">
-                                    <label for="password-strength">Minimum Strength</label>
-                                    <select id="password-strength">
-                                        <option value="weak">Weak</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="strong" selected>Strong</option>
-                                        <option value="very-strong">Very Strong</option>
-                                    </select>
-                                </div>
-                                <button id="generate-password" class="btn btn-primary">Generate Password</button>
-                                <button id="batch-password" class="btn btn-outline premium-feature">Batch Generate</button>
-                            </div>
-                            <div class="tool-result">
-                                <div id="password-result" class="password-result"></div>
-                                <div class="password-actions">
-                                    <button id="copy-password" class="btn btn-outline" style="display: none;">Copy Password</button>
-                                    <button id="check-password" class="btn btn-outline" style="display: none;">Check Strength</button>
-                                    <button id="save-password" class="btn btn-outline premium-feature" style="display: none;">Save to Vault</button>
-                                </div>
-                                <div id="password-strength" class="password-strength"></div>
+                                <button id="share-quote" class="btn btn-outline" style="display: none;">Share Quote</button>
                             </div>
                         </div>
                     </div>
@@ -308,41 +177,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Batch Processing Panel -->
-        <div class="batch-processing-panel premium-feature">
-            <h3>Batch Processing</h3>
-            <div class="batch-upload-area" id="batch-upload-area">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Drag & drop files here or click to browse</p>
-                <input type="file" id="batch-files" multiple accept=".txt,.csv">
-            </div>
-            <div class="batch-results" id="batch-results"></div>
-        </div>
-
-        <!-- Analytics Dashboard -->
-        <div class="analytics-dashboard premium-feature">
-            <h3>Tool Usage Analytics</h3>
-            <div class="analytics-grid">
-                <div class="analytics-card">
-                    <h3>Total Generations</h3>
-                    <div class="analytics-value">1,234</div>
-                </div>
-                <div class="analytics-card">
-                    <h3>Most Used Tool</h3>
-                    <div class="analytics-value">QR Code</div>
-                </div>
-                <div class="analytics-card">
-                    <h3>Avg. Time/Tool</h3>
-                    <div class="analytics-value">2.3s</div>
-                </div>
-                <div class="analytics-card">
-                    <h3>Success Rate</h3>
-                    <div class="analytics-value">98.5%</div>
-                </div>
-            </div>
-            <canvas id="usage-chart" width="400" height="200"></canvas>
-        </div>
 
         <!-- AI Chat Section -->
         <section id="ai-chat" class="ai-chat-section">
@@ -353,8 +187,8 @@
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="ai-info">
-                            <h3>Creative Assistant Pro</h3>
-                            <p>AI-powered help with advanced features</p>
+                            <h3>Creative Assistant</h3>
+                            <p>AI-powered help for your creative projects</p>
                         </div>
                     </div>
                     <div class="ai-status">
@@ -370,13 +204,12 @@
                                 <i class="fas fa-robot"></i>
                             </div>
                             <div class="message-content">
-                                <p>Hello! I'm your Creative Assistant Pro. I can help you with:</p>
+                                <p>Hello! I'm your Creative Assistant. I can help you with:</p>
                                 <ul>
-                                    <li>🎨 Advanced tool features</li>
-                                    <li>💡 AI-powered suggestions</li>
+                                    <li>🎨 Using the creative tools</li>
+                                    <li>💡 Creative ideas and inspiration</li>
                                     <li>🔧 Technical troubleshooting</li>
                                     <li>📊 Analytics insights</li>
-                                    <li>🚀 Workflow automation</li>
                                 </ul>
                                 <p>What would you like help with today?</p>
                             </div>
@@ -391,21 +224,21 @@
                             </button>
                         </div>
                         <div class="quick-actions">
-                            <button class="quick-action" data-query="How do I use batch processing?">
-                                <i class="fas fa-layer-group"></i>
-                                Batch Processing
+                            <button class="quick-action" data-query="How do I use the QR code generator?">
+                                <i class="fas fa-qrcode"></i>
+                                QR Code Help
                             </button>
-                            <button class="quick-action" data-query="What are the premium features?">
-                                <i class="fas fa-crown"></i>
-                                Premium Features
+                            <button class="quick-action" data-query="Give me creative ideas for my project">
+                                <i class="fas fa-lightbulb"></i>
+                                Creative Ideas
                             </button>
-                            <button class="quick-action" data-query="How can I integrate with APIs?">
-                                <i class="fas fa-code"></i>
-                                API Integration
+                            <button class="quick-action" data-query="How can I improve my design skills?">
+                                <i class="fas fa-palette"></i>
+                                Design Tips
                             </button>
-                            <button class="quick-action" data-query="Show me analytics dashboard">
-                                <i class="fas fa-chart-line"></i>
-                                Analytics
+                            <button class="quick-action" data-query="What tools are best for beginners?">
+                                <i class="fas fa-graduation-cap"></i>
+                                Beginner Guide
                             </button>
                         </div>
                     </div>
@@ -414,112 +247,183 @@
         </section>
     </main>
 
-    <!-- Floating Action Buttons -->
-    <div class="fab-container">
-        <div class="fab-menu" id="fabMenu">
-            <button class="fab-item" onclick="marketplace.showMarketplace()" data-tooltip="Template Marketplace">
-                <i class="fas fa-store"></i>
-            </button>
-            <button class="fab-item" onclick="apiDocs.showDocumentation()" data-tooltip="API Docs">
-                <i class="fas fa-code"></i>
-            </button>
-            <button class="fab-item" onclick="integrations.showIntegrations()" data-tooltip="Integrations">
-                <i class="fas fa-plug"></i>
-            </button>
-            <button class="fab-item" onclick="automation.createWorkflow()" data-tooltip="Workflows">
-                <i class="fas fa-project-diagram"></i>
-            </button>
-            <button class="fab-item" onclick="teamFeatures.createTeam()" data-tooltip="Team Collaboration">
-                <i class="fas fa-users"></i>
-            </button>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="assets/images/logo.svg" alt="Creative Tools Hub">
+                    <span>Creative Tools Hub</span>
+                </div>
+                <div class="footer-description">
+                    <p>Your ultimate destination for creative tools that inspire, innovate, and transform ideas into reality.</p>
+                </div>
+            </div>
+            
+            <div class="footer-middle">
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="tools.html">Tools</a></li>
+                            <li><a href="index.html#pricing">Pricing</a></li>
+                            <li><a href="index.html#features">Features</a></li>
+                            <li><a href="#">Updates</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#" id="help-link">Help Center</a></li>
+                            <li><a href="#" id="faq-link">FAQs</a></li>
+                            <li><a href="#" id="privacy-link">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Creative Tools Hub. All rights reserved.</p>
+            </div>
         </div>
-        <button class="fab-main" id="fabMain">
-            <i class="fas fa-plus"></i>
-        </button>
+    </footer>
+
+    <!-- Help Modal -->
+    <div class="info-modal" id="help-modal">
+        <div class="info-modal-content">
+            <div class="info-modal-header">
+                <h3>Help Center</h3>
+                <button class="info-modal-close">&times;</button>
+            </div>
+            <div class="info-modal-body">
+                <div class="help-categories">
+                    <div class="help-category">
+                        <h4><i class="fas fa-tools"></i> Getting Started</h4>
+                        <ul>
+                            <li>How to create an account</li>
+                            <li>Navigating the tools dashboard</li>
+                            <li>Understanding tool features</li>
+                        </ul>
+                    </div>
+                    <div class="help-category">
+                        <h4><i class="fas fa-cog"></i> Tool Guides</h4>
+                        <ul>
+                            <li>QR Code Generator tutorial</li>
+                            <li>Color Palette best practices</li>
+                            <li>Password security tips</li>
+                        </ul>
+                    </div>
+                    <div class="help-category">
+                        <h4><i class="fas fa-credit-card"></i> Billing & Plans</h4>
+                        <ul>
+                            <li>Upgrading your plan</li>
+                            <li>Managing subscription</li>
+                            <li>Refund policy</li>
+                        </ul>
+                    </div>
+                    <div class="help-category">
+                        <h4><i class="fas fa-headset"></i> Support</h4>
+                        <ul>
+                            <li>Contact our support team</li>
+                            <li>Report a bug</li>
+                            <li>Feature requests</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="help-contact">
+                    <p>Can't find what you're looking for? Contact us at <a href="mailto:support@creativetoolshub.com">support@creativetoolshub.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div class="info-modal" id="faq-modal">
+        <div class="info-modal-content">
+            <div class="info-modal-header">
+                <h3>Frequently Asked Questions</h3>
+                <button class="info-modal-close">&times;</button>
+            </div>
+            <div class="info-modal-body">
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>How do I use the QR Code Generator?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Simply enter the URL or text you want to encode, customize the appearance if desired, and click "Generate QR Code". You can then download the QR code as an image.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Can I use the tools for commercial purposes?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, all tools can be used for both personal and commercial purposes with our Pro and Business plans.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div class="info-modal" id="privacy-modal">
+        <div class="info-modal-content">
+            <div class="info-modal-header">
+                <h3>Privacy Policy</h3>
+                <button class="info-modal-close">&times;</button>
+            </div>
+            <div class="info-modal-body">
+                <h4>Information We Collect</h4>
+                <p>We collect information you provide directly to us, such as when you create an account, use our tools, or contact us for support.</p>
+                
+                <h4>How We Use Your Information</h4>
+                <p>We use the information we collect to provide, maintain, and improve our services, process transactions, and communicate with you.</p>
+                
+                <h4>Information Sharing</h4>
+                <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.</p>
+                
+                <h4>Data Security</h4>
+                <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+                
+                <h4>Your Rights</h4>
+                <p>You have the right to access, update, or delete your personal information at any time.</p>
+                
+                <h4>Changes to This Policy</h4>
+                <p>We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+            </div>
+        </div>
     </div>
 
     <!-- AI Assistant -->
-    <div id="aiAssistant" class="ai-assistant-premium">
+    <div id="aiAssistant" class="ai-assistant">
         <div class="ai-logo">
             <i class="fas fa-robot"></i>
         </div>
     </div>
 
-    <!-- Team Collaboration Panel -->
-    <div class="team-panel" id="teamPanel">
-        <div class="team-panel-header">
-            <h3>Team Collaboration</h3>
-            <button class="panel-close">&times;</button>
-        </div>
-        <div class="team-members">
-            <div class="team-member">
-                <div class="team-member-avatar">JD</div>
-                <div class="team-member-info">
-                    <div class="team-member-name">John Doe</div>
-                    <div class="team-member-status online">Online</div>
-                </div>
-            </div>
-            <div class="team-member">
-                <div class="team-member-avatar">JS</div>
-                <div class="team-member-info">
-                    <div class="team-member-name">Jane Smith</div>
-                    <div class="team-member-status online">Online</div>
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-primary" onclick="teamFeatures.inviteMembers()">Invite Members</button>
-    </div>
-
-    <!-- Cloud Storage Panel -->
-    <div class="cloud-storage-panel" id="cloudStoragePanel">
-        <div class="cloud-storage-header">
-            <h3>Cloud Storage</h3>
-            <button class="panel-close">&times;</button>
-        </div>
-        <div class="cloud-files">
-            <div class="cloud-file">
-                <div class="cloud-file-icon">
-                    <i class="fas fa-qrcode"></i>
-                </div>
-                <div class="cloud-file-info">
-                    <div class="cloud-file-name">qr-code-1.png</div>
-                    <div class="cloud-file-meta">45 KB • 2 hours ago</div>
-                </div>
-            </div>
-            <div class="cloud-file">
-                <div class="cloud-file-icon">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <div class="cloud-file-info">
-                    <div class="cloud-file-name">palette-1.json</div>
-                    <div class="cloud-file-meta">2 KB • 1 day ago</div>
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-primary" onclick="document.getElementById('file-upload').click()">Upload Files</button>
-        <input type="file" id="file-upload" multiple style="display: none;">
-    </div>
-
-    <!-- Footer (same as before) -->
-    <footer class="footer">
-        <!-- Footer content remains the same -->
-    </footer>
-
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-    </div>
-
-    <!-- Success Animation -->
-    <div class="success-animation" id="successAnimation">
-        <i class="fas fa-check"></i>
-    </div>
-
-    <!-- Scripts -->
     <script src="js/main.js"></script>
-    <script src="js/tools/qr-code-generator.js"></script>
-    <script src="js/tools/color-palette-generator.js"></script>
-    <script src="js/tools/password-generator.js"></script>
-    <!-- Add other tool scripts -->
+    <script src="js/maintools.js"></script>
 </body>
 </html>
